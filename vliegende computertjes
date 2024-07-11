@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vliegende Computertjes</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+        .computer {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://img.icons8.com/emoji/48/000000/laptop-emoji.png') no-repeat center center;
+            background-size: contain;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('click', function(event) {
+            for (let i = 0; i < 10; i++) {
+                createFlyingComputer(event.clientX, event.clientY);
+            }
+        });
+
+        function createFlyingComputer(x, y) {
+            let computer = document.createElement('div');
+            computer.classList.add('computer');
+            document.body.appendChild(computer);
+
+            let startX = x;
+            let startY = y;
+            let endX = Math.random() * window.innerWidth;
+            let endY = Math.random() * window.innerHeight;
+            let duration = Math.random() * 3000 + 2000;
+
+            computer.style.left = startX + 'px';
+            computer.style.top = startY + 'px';
+
+            computer.animate([
+                { transform: `translate(${endX - startX}px, ${endY - startY}px)` }
+            ], {
+                duration: duration,
+                easing: 'ease-out'
+            });
+
+            setTimeout(() => {
+                computer.remove();
+            }, duration);
+        }
+    </script>
+</body>
+</html>
